@@ -1,4 +1,3 @@
-import os
 import httpx
 
 from app import config

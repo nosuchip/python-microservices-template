@@ -9,6 +9,7 @@ uvicorn = "*"
 httpx = "*"
 databases = {extras = ["asyncpg"], version = "*"}
 asyncpg = "*"
+python-microservices-shared = {file = "../shared/dist/python_microservices_shared-0.0.1-py3-none-any.whl"}
 
 [dev-packages]
 

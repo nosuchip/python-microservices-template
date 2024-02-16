@@ -1,4 +1,4 @@
-from app.api.models import MovieIn, MovieOut, MovieUpdate
+from app.api.models import MovieIn, MovieUpdate
 from app.api.db import movies, database
 
 
@@ -23,6 +23,6 @@ async def delete_movie(id: int):
     return await database.execute(query=query)
 
 
-async def update_movie(id: int, payload: MovieIn):
+async def update_movie(id: int, payload: MovieUpdate):
     query = movies.update().where(movies.c.id == id).values(**payload.dict())
     return await database.execute(query=query)

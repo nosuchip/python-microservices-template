@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "896e877ec3e3c32100fc86a2634e4cef40a5176a713d34893817014780a76224"
+            "sha256": "1e5890141808dfd492908cb1f4272c61b111ed5fbd094144682413e0347007f0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -289,6 +289,12 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.16.2"
+        },
+        "python-microservices-shared": {
+            "file": "../shared/dist/python_microservices_shared-0.0.1-py3-none-any.whl",
+            "hashes": [
+                "sha256:24520296ca24d4263ff6df9a29e3409c52ca376834409d866994cdfe7eed9340"
+            ]
         },
         "sniffio": {
             "hashes": [

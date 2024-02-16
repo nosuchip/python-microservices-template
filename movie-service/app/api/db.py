@@ -1,21 +1,8 @@
-import os
-
-from sqlalchemy import (
-    Column,
-    DateTime,
-    Integer,
-    MetaData,
-    String,
-    Table,
-    create_engine,
-    ARRAY,
-    dialects,
-    schema
-)
-
-from databases import Database
 from app import config
-from app.logger import logger
+from databases import Database
+from sqlalchemy import ARRAY, Column, Integer, MetaData, String, Table, dialects
+
+from python_microservices_shared import Repository, create_tables
 
 database = Database(config.DATABASE_URI)
 metadata = MetaData()
@@ -31,15 +18,4 @@ movies = Table(
     Column("casts_id", ARRAY(Integer)),
 )
 
-async def create_tables():
-    if config.ENV == "development":
-        logger.debug(f"==== Creating tables for environment: {config.ENV} ====")
-
-        await database.connect()
-        
-        for table in metadata.tables.values():
-            db_schema = schema.CreateTable(table, if_not_exists=True)
-            query = str(db_schema.compile(dialect=dialect))
-            await database.execute(query=query)
-    
-        await database.disconnect()
+repository = Repository(database, movies)

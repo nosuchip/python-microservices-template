@@ -4,13 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-asyncpg = "*"
 databases = {extras = ["asyncpg"], version = "*"}
-fastapi = "*"
-uvicorn = "*"
-python-microservices-shared = {file = "../shared/dist/python_microservices_shared-0.0.1-py3-none-any.whl"}
 
 [dev-packages]
+ruff = "*"
+setuptools = "*"
+build = "*"
 
 [requires]
 python_version = "3.11"

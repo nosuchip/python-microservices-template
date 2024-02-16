@@ -2,8 +2,8 @@ from typing import List
 from fastapi import APIRouter, HTTPException
 
 from app.api.models import MovieOut, MovieIn, MovieUpdate
-from app.api import db_manager
 from app.api.service import is_cast_present
+from app.api.db import repository
 
 movies = APIRouter()
 
@@ -16,7 +16,7 @@ async def create_movie(payload: MovieIn):
                 status_code=404, detail=f"Cast with id:{cast_id} not found"
             )
 
-    movie_id = await db_manager.add_movie(payload)
+    movie_id = await repository.create(payload)
     response = {"id": movie_id, **payload.dict()}
 
     return response
@@ -24,20 +24,22 @@ async def create_movie(payload: MovieIn):
 
 @movies.get("/", response_model=List[MovieOut])
 async def get_movies():
-    return await db_manager.get_all_movies()
+    return await repository.find_many()
 
 
-@movies.get("/{id}/", response_model=MovieOut)
+@movies.get("/{id}", response_model=MovieOut)
 async def get_movie(id: int):
-    movie = await db_manager.get_movie(id)
+    movie = await repository.find_one(id)
+
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
     return movie
 
 
-@movies.put("/{id}/", response_model=MovieOut)
+@movies.put("/{id}", response_model=MovieOut)
 async def update_movie(id: int, payload: MovieUpdate):
-    movie = await db_manager.get_movie(id)
+    movie = await repository.find_one(id)
+
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
 
@@ -54,12 +56,14 @@ async def update_movie(id: int, payload: MovieUpdate):
 
     updated_movie = movie_in_db.copy(update=update_data)
 
-    return await db_manager.update_movie(id, updated_movie)
+    return await repository.update(id, updated_movie)
 
 
 @movies.delete("/{id}", response_model=None)
 async def delete_movie(id: int):
-    movie = await db_manager.get_movie(id)
+    movie = await repository.find_one(id)
+
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
-    return await db_manager.delete_movie(id)
+
+    return await repository.delete_one(id)

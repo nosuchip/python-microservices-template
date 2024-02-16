@@ -1,15 +1,16 @@
 from fastapi import FastAPI
 from app.api.movies import movies
-from app.api.db import database, create_tables
+from app.api.db import database, create_tables, metadata
 from app import config
 from app.logger import logger
 
 app = FastAPI()
 
+
 @app.on_event("startup")
 async def startup():
     logger.debug("==== API started, connecting to database ====")
-    await create_tables()
+    await create_tables(config.ENV, database, metadata)
     await database.connect()
 
 
