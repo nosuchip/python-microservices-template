@@ -25,4 +25,4 @@ mkdir -p shared_dist
 cp ../shared/dist/*.whl shared_dist/
 popd
 
-docker compose build
+#docker compose build

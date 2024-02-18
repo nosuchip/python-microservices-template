@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 databases = {extras = ["asyncpg"], version = "*"}
+pydantic = "*"
 
 [dev-packages]
 ruff = "*"

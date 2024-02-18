@@ -293,7 +293,7 @@
         "python-microservices-shared": {
             "file": "../shared/dist/python_microservices_shared-0.0.1-py3-none-any.whl",
             "hashes": [
-                "sha256:24520296ca24d4263ff6df9a29e3409c52ca376834409d866994cdfe7eed9340"
+                "sha256:407a61ab23edced47821ccda69545eadfb02c1a28dd162829038e77070dde9bd"
             ]
         },
         "sniffio": {

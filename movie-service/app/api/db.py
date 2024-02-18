@@ -2,7 +2,10 @@ from app import config
 from databases import Database
 from sqlalchemy import ARRAY, Column, Integer, MetaData, String, Table, dialects
 
-from python_microservices_shared import Repository, create_tables
+from python_microservices_shared import Repository, create_tables  # noqa: F401
+
+from app.api.models import MovieIn, MovieUpdate
+
 
 database = Database(config.DATABASE_URI)
 metadata = MetaData()
@@ -18,4 +21,6 @@ movies = Table(
     Column("casts_id", ARRAY(Integer)),
 )
 
-repository = Repository(database, movies)
+repository = Repository[MovieIn, MovieUpdate, MovieUpdate, MovieUpdate](
+    database, movies
+)
